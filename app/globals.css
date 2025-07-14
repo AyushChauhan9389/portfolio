@@ -1,26 +1,489 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@theme {
+  /* Core spacing variable - required for all spacing utilities in v4 */
+  --spacing: 0.25rem;
+
+  /* Rust-themed colors - using hex values for better performance */
+  --color-rust-orange: #ff4500;
+  --color-rust-brown: #ce422b;
+  --color-rust-dark: #8b4513;
+  --color-rust-light: #ff6347;
+  --color-rust-muted: #a0522d;
+
+  /* Border radius variables following v4 conventions */
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  /* Font family - exact from config */
+  --font-mono: "JetBrains Mono", "Fira Code", "Source Code Pro", ui-monospace, SFMono-Regular, "Roboto Mono", Menlo, Monaco, "Liberation Mono", "DejaVu Sans Mono", "Courier New", monospace;
+
+  /* Background image patterns */
+  --gradient-radial: radial-gradient(var(--tw-gradient-stops));
+  --gradient-conic: conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops));
+  --rust-grid: linear-gradient(rgba(255, 69, 0, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 69, 0, 0.1) 1px, transparent 1px);
+
+  /* Background sizes */
+  --size-grid: 20px 20px;
+
+  /* Animation definitions - v4 style */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-rust-glow-pulse: rust-glow-pulse 2s ease-in-out infinite;
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-rust-rain: rust-rain 3s linear infinite;
+  --animate-rust-gradient-shift: rust-gradient-shift 3s ease infinite;
+
+  /* Keyframes definitions within @theme for v4 compliance */
+  @keyframes accordion-down {
+    from { height: 0; }
+    to { height: var(--radix-accordion-content-height); }
+  }
+
+  @keyframes accordion-up {
+    from { height: var(--radix-accordion-content-height); }
+    to { height: 0; }
+  }
+
+  @keyframes rust-glow-pulse {
+    0%, 100% {
+      box-shadow: 0 0 5px #ff4500, 0 0 10px #ff4500, 0 0 15px #ff4500;
+    }
+    50% {
+      box-shadow: 0 0 10px #ff4500, 0 0 20px #ff4500, 0 0 30px #ff4500;
+    }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes rust-rain {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+  }
+
+  @keyframes rust-gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Container utility following v4 best practices */
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+  width: 100%;
+  
+  @media (width >= 1536px) {
+    max-width: 1400px;
+  }
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.145 0.02 220);
+  --foreground: oklch(0.95 0.015 220);
+  --card: oklch(0.18 0.02 220);
+  --card-foreground: oklch(0.95 0.015 220);
+  --popover: oklch(0.18 0.02 220);
+  --popover-foreground: oklch(0.95 0.015 220);
+  --primary: oklch(0.67 0.25 16);
+  --primary-foreground: oklch(0.145 0.02 220);
+  --secondary: oklch(0.25 0.02 220);
+  --secondary-foreground: oklch(0.95 0.015 220);
+  --muted: oklch(0.25 0.02 220);
+  --muted-foreground: oklch(0.65 0.015 220);
+  --accent: oklch(0.67 0.25 16);
+  --accent-foreground: oklch(0.145 0.02 220);
+  --destructive: oklch(0.6 0.2 0);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.35 0.02 220);
+  --input: oklch(0.35 0.02 220);
+  --ring: oklch(0.67 0.25 16);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.18 0.02 220);
+  --sidebar-foreground: oklch(0.95 0.015 220);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.95 0.015 220);
+  --sidebar-accent: oklch(0.25 0.02 220);
+  --sidebar-accent-foreground: oklch(0.95 0.015 220);
+  --sidebar-border: oklch(0.35 0.02 220);
+  --sidebar-ring: oklch(0.67 0.25 16);
+  --font-mono: "JetBrains Mono", "Fira Code", "Source Code Pro", ui-monospace, SFMono-Regular, "Roboto Mono", Menlo,
+    Monaco, "Liberation Mono", "DejaVu Sans Mono", "Courier New", monospace;
+}
+
+.dark {
+  --background: oklch(0.08 0.015 20);
+  --foreground: oklch(0.95 0 0);
+  --card: oklch(0.16 0.02 24);
+  --card-foreground: oklch(0.95 0 0);
+  --popover: oklch(0.14 0 0);
+  --popover-foreground: oklch(0.95 0 0);
+  --primary: oklch(0.67 0.25 16);
+  --primary-foreground: oklch(0.973 0 355.7);
+  --secondary: oklch(0.254 0.015 240);
+  --secondary-foreground: oklch(0.98 0 0);
+  --muted: oklch(0.24 0 0);
+  --muted-foreground: oklch(0.649 0.02 240);
+  --accent: oklch(0.242 0.026 12);
+  --accent-foreground: oklch(0.98 0 0);
+  --destructive: oklch(0.486 0.157 0);
+  --destructive-foreground: oklch(0.973 0.043 0);
+  --border: oklch(0.254 0.015 240);
+  --input: oklch(0.254 0.015 240);
+  --ring: oklch(0.67 0.25 16);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply text-foreground font-mono;
+    background: linear-gradient(
+      135deg,
+      oklch(0.145 0.02 220) 0%,
+      oklch(0.18 0.08 16) 25%,
+      oklch(0.145 0.02 220) 50%,
+      oklch(0.19 0.06 30) 75%,
+      oklch(0.145 0.02 220) 100%
+    );
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: var(--rust-grid);
+    background-size: var(--size-grid);
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+/* Custom animations and effects */
+.animate-in {
+  animation: animateIn 0.8s ease-out;
+}
+
+@keyframes animateIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Timeline with Rust styling */
+.timeline-item {
+  @apply relative pl-8 pb-12;
+}
+
+.timeline-item::before {
+  content: "";
+  @apply absolute left-0 top-1 size-4 rounded-full;
+  background: linear-gradient(45deg, var(--color-rust-orange), var(--color-rust-brown));
+  box-shadow: 0 0 10px var(--color-rust-orange), 0 0 20px var(--color-rust-orange), 0 0 30px var(--color-rust-orange);
+  animation: var(--animate-rust-glow-pulse);
+}
+
+.timeline-item::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 1.25rem;
+  height: 100%;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--color-rust-orange), var(--color-rust-brown), var(--color-rust-dark));
+  opacity: 0.6;
+}
+
+.timeline-item:last-child::after {
+  height: 2rem;
+}
+
+/* Rust gradient text effect */
+.rust-gradient-text {
+  background: linear-gradient(45deg, var(--color-rust-orange), var(--color-rust-brown), var(--color-rust-dark), var(--color-rust-orange));
+  background-size: 300% 300%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: var(--animate-rust-gradient-shift);
+}
+
+/* Skill cards with enhanced effects */
+.skill-card {
+  @apply transition-all duration-300;
+  position: relative;
+}
+
+.skill-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 30px color-mix(in srgb, var(--color-rust-orange) 30%, transparent);
+}
+
+.skill-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, transparent, color-mix(in srgb, var(--color-rust-orange) 10%, transparent), transparent);
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.skill-card:hover::before {
+  opacity: 1;
+}
+
+/* Animated background blobs */
+.animated-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.6;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.animated-background .blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  transition: transform 4s ease-out;
+  animation: var(--animate-float);
+}
+
+.animated-background .blob-1 {
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-rust-orange) 40%, transparent), color-mix(in srgb, var(--color-rust-brown) 20%, transparent));
+  width: 500px;
+  height: 500px;
+  top: 10%;
+  left: 5%;
+  animation-delay: 0s;
+}
+
+.animated-background .blob-2 {
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-rust-brown) 40%, transparent), color-mix(in srgb, var(--color-rust-dark) 20%, transparent));
+  width: 400px;
+  height: 400px;
+  top: 50%;
+  right: 10%;
+  animation-delay: 2s;
+}
+
+.animated-background .blob-3 {
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-rust-dark) 30%, transparent), color-mix(in srgb, var(--color-rust-muted) 20%, transparent));
+  width: 300px;
+  height: 300px;
+  bottom: 20%;
+  left: 30%;
+  animation-delay: 4s;
+}
+
+/* Project cards */
+.project-card {
+  @apply transition-all duration-300;
+  position: relative;
+  background: color-mix(in srgb, var(--color-card) 80%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-rust-orange) 30%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+  border-color: color-mix(in srgb, var(--color-rust-orange) 80%, transparent);
+  box-shadow: 0 0 20px color-mix(in srgb, var(--color-rust-orange) 40%, transparent), 0 20px 40px color-mix(in srgb, black 30%, transparent);
+}
+
+.project-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-rust-orange), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.project-card:hover::before {
+  opacity: 1;
+}
+
+/* Navigation styling */
+.nav-item {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nav-item::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-rust-orange), var(--color-rust-brown));
+  transition: width 0.3s ease;
+  box-shadow: 0 0 10px currentColor;
+}
+
+.nav-item:hover::after,
+.nav-item.active::after {
+  width: 100%;
+}
+
+/* Card components */
+.card {
+  background: color-mix(in srgb, var(--color-card) 60%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-rust-orange) 20%, transparent);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  border-color: color-mix(in srgb, var(--color-rust-orange) 50%, transparent);
+  box-shadow: 0 8px 25px color-mix(in srgb, var(--color-rust-orange) 15%, transparent);
+}
+
+/* Rust-themed buttons */
+.btn-rust {
+  background: linear-gradient(45deg, color-mix(in srgb, var(--color-rust-orange) 80%, transparent), color-mix(in srgb, var(--color-rust-brown) 80%, transparent));
+  border: 1px solid color-mix(in srgb, var(--color-rust-orange) 50%, transparent);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-rust:hover {
+  background: linear-gradient(45deg, color-mix(in srgb, var(--color-rust-orange) 90%, transparent), color-mix(in srgb, var(--color-rust-brown) 90%, transparent));
+  border-color: color-mix(in srgb, var(--color-rust-orange) 80%, transparent);
+  box-shadow: 0 4px 15px color-mix(in srgb, var(--color-rust-orange) 30%, transparent);
+}
+
+.btn-rust::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, white 10%, transparent), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-rust:hover::before {
+  left: 100%;
+}
+
+/* Utility classes */
+html {
+  scroll-behavior: smooth;
+}
+
+.rust-code-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.1;
+}
+
+.rust-char {
+  position: absolute;
+  color: var(--color-rust-orange);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  animation: var(--animate-rust-rain);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .animated-background .blob {
+    width: 250px !important;
+    height: 250px !important;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: color-mix(in srgb, var(--color-card) 50%, transparent);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, var(--color-rust-orange), var(--color-rust-brown));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, var(--color-rust-brown), var(--color-rust-dark));
 }
