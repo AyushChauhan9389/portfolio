@@ -79,9 +79,9 @@ export default function Hero() {
               size="lg"
               className="flex-1 rounded-full border-rust-orange text-rust-orange hover:bg-rust-orange hover:text-background transition-all duration-300 bg-transparent font-mono"
             >
-              <a href="#" target="_blank" rel="noopener noreferrer">
+              <Link href="/Ayush_Chauhan_CV.pdf" target="_blank" rel="noopener noreferrer">
                 <Download className="mr-2 h-4 w-4" /> cargo install --resume
-              </a>
+              </Link>
             </Button>
           </div>
 
@@ -92,7 +92,7 @@ export default function Hero() {
               className="hover:text-rust-orange hover:bg-rust-orange/10 transition-all duration-300"
               asChild
             >
-              <Link href="https://github.com/ayushchauhan" target="_blank" rel="noopener noreferrer">
+              <Link href="https://github.com/AyushChauhan9389" target="_blank" rel="noopener noreferrer">
                 <Github className="h-5 w-5" />
                 <span className="sr-only">GitHub</span>
               </Link>
@@ -103,7 +103,7 @@ export default function Hero() {
               className="hover:text-rust-brown hover:bg-rust-brown/10 transition-all duration-300"
               asChild
             >
-              <Link href="https://linkedin.com/in/ayushchauhan" target="_blank" rel="noopener noreferrer">
+              <Link href="https://linkedin.com/in/ayush-c93/" target="_blank" rel="noopener noreferrer">
                 <Linkedin className="h-5 w-5" />
                 <span className="sr-only">LinkedIn</span>
               </Link>
