@@ -79,7 +79,7 @@ export default function Hero() {
               size="lg"
               className="flex-1 rounded-full border-rust-orange text-rust-orange hover:bg-rust-orange hover:text-background transition-all duration-300 bg-transparent font-mono"
             >
-              <Link href="/Ayush_Chauhan_CV.pdf" target="_blank" rel="noopener noreferrer">
+              <Link href="/public/Ayush_Chauhan_CV.pdf" target="_blank" rel="noopener noreferrer">
                 <Download className="mr-2 h-4 w-4" /> cargo install --resume
               </Link>
             </Button>
