@@ -62,11 +62,11 @@ export default function Hero() {
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 mt-8 w-full max-w-md">
+          <div className="flex flex-col sm:flex-row gap-4 mt-8 w-full max-w-md mx-auto justify-center">
             <Button
               asChild
               size="lg"
-              className="flex-1 rounded-full bg-gradient-to-r from-rust-orange/80 to-rust-brown/80 hover:from-rust-orange hover:to-rust-brown transition-all duration-300 shadow-md hover:shadow-lg border border-rust-orange/30 font-mono"
+              className="w-full rounded-full bg-gradient-to-r from-rust-orange/80 to-rust-brown/80 hover:from-rust-orange hover:to-rust-brown transition-all duration-300 shadow-md hover:shadow-lg border border-rust-orange/30 font-mono text-base sm:text-lg lg:text-xl py-4 sm:py-5 lg:py-6 h-auto"
             >
               <Link href="#contact">
                 <Settings className="mr-2 h-4 w-4" />
@@ -77,7 +77,7 @@ export default function Hero() {
               asChild
               variant="outline"
               size="lg"
-              className="flex-1 rounded-full border-rust-orange text-rust-orange hover:bg-rust-orange hover:text-background transition-all duration-300 bg-transparent font-mono"
+              className="w-full rounded-full bg-gradient-to-r from-rust-orange/80 to-rust-brown/80 hover:from-rust-orange hover:to-rust-brown transition-all duration-300 shadow-md hover:shadow-lg border border-rust-orange/30 font-mono text-base sm:text-lg lg:text-xl py-4 sm:py-5 lg:py-6 h-auto"
             >
               <Link href="/public/Ayush_Chauhan_CV.pdf" target="_blank" rel="noopener noreferrer">
                 <Download className="mr-2 h-4 w-4" /> cargo install --resume
